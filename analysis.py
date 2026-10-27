@@ -65,3 +65,10 @@ def print_lift_summary(alpha, cl0=0.10, lift_slope=0.11):
 #     solve_alpha(...)
 #
 # This feature has not been implemented yet.
+
+def alpha_residual(alpha, target_cl, cl0 = 0.10, lift_slope = 0.11):
+    return cl0 + lift_slope * alpha - target_cl
+
+def solve_alpha(target_cl, cl0 = 0.10, lift_slope = 0.11, alpha_guess = 0):
+    alpha_solution = fsolve(alpha_residual, alpha_guess, args = (target_cl, cl0, lift_slope))
+    return alpha_solution[0]
